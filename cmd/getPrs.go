@@ -7,10 +7,8 @@ package cmd
 import (
 	"fmt"
 	"context"
-
 	"github.com/spf13/cobra"
 	"github.com/google/go-github/github"
-	"golang.org/x/oauth2"
 )
 
 
@@ -20,7 +18,10 @@ var getPrsCmd = &cobra.Command{
 	Short: "Get Pull requests",
 	Long: `given a github user allows me to find it's latest 5 PRs`,
 	Run: func(cmd *cobra.Command, args []string) {
-		getPrs(args[0]);
+		ctx := context.Background()
+		client := getClient(ctx)
+		repos := getRepositories(args[0],ctx)
+		_ = printPullRequests(repos, client, args[0], ctx)
 	},
 }
 
@@ -28,23 +29,7 @@ func init() {
 	rootCmd.AddCommand(getPrsCmd)
 }
 
-func getPrs(targetUser string){
-
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: "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"},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client := github.NewClient(tc)
-
-
-	// List all repositories for the target user
-	repos, _, err := client.Repositories.List(ctx, targetUser, nil)
-	if err != nil {
-		fmt.Printf("Error retrieving repositories: %v\n", err)
-		return
-	}
+func printPullRequests(repos []*github.Repository, client *github.Client, targetUser string, ctx context.Context) int{
 
 	flag := 0;
 	count := 0;
@@ -57,7 +42,6 @@ func getPrs(targetUser string){
 			continue
 		}
 
-		
 		if len(pullRequests) != 0 {
 			flag = 1
 		}else{
@@ -82,8 +66,8 @@ func getPrs(targetUser string){
 	if flag == 0 {
 		fmt.Print("No pull requests found for repository", "\n")
 	}
-}
-	
 
+	return count
+}
 
 

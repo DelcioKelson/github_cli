@@ -7,10 +7,8 @@ package cmd
 import (
 	"fmt"
 	"context"
-
 	"github.com/spf13/cobra"
 	"github.com/google/go-github/github"
-	"golang.org/x/oauth2"
 )
 
 // followsRepoCmd represents the followsRepo command
@@ -24,36 +22,26 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		getFollowedRepositories(args[0])
+		ctx := context.Background()
+		repos := getFollowedRepositories(args[0],ctx)
+		printRepositories(repos)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(followsRepoCmd)
-
 }
 
 
-func getFollowedRepositories(targetUser string){
+func getFollowedRepositories(targetUser string, ctx context.Context) ([]*github.Repository){
 
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: "github token"},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client := github.NewClient(tc)
-
+	client := getClient(ctx)
 
 	repos, _, err := client.Activity.ListWatched(ctx, targetUser, nil)
 	if err != nil {
 		fmt.Printf("Error retrieving followed repositories: %v\n", err)
-		return
+		return nil
 	}
 
-	// Iterate over the repositories and print their names
-	for _, repo := range repos {
-		fmt.Println(repo.GetFullName())
-	}
-
+	return repos
 }
