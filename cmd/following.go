@@ -13,17 +13,21 @@ import (
 
 // followsRepoCmd represents the followsRepo command
 var followsRepoCmd = &cobra.Command{
-	Use:   "followsRepo",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "following",
+	Short: "Get repos followed by the target user",
+	Long: `The "following" command fetches a list of repositories that are followed by
+	the target user on GitHub. It provides insights into the repositories the user finds
+	interesting or wants to keep track of
+Usage:
+github_cli following [target user]
+	
+Example:
+github_cli following john-doe
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		repos := getFollowedRepositories(args[0],ctx)
+		fmt.Println("Repositories followed by the Target user:")
 		printRepositories(repos)
 	},
 }

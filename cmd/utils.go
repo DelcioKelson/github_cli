@@ -7,6 +7,8 @@ import (
 	"golang.org/x/oauth2"
 	"github.com/spf13/viper"
 
+	"golang.org/x/crypto/ssh/terminal"
+	"os"
 )
 
 func getClient(ctx context.Context)(*github.Client){
@@ -14,8 +16,7 @@ func getClient(ctx context.Context)(*github.Client){
 	for {
 		if !viper.IsSet("github_token") {
 			fmt.Println("Set you github token:")
-			var token string
-			fmt.Scanln(&token)
+			token, _ := terminal.ReadPassword(int(os.Stdin.Fd()))
 			viper.Set("github_token", token)
 		}
 
@@ -36,7 +37,6 @@ func getClient(ctx context.Context)(*github.Client){
 		}	
 		viper.WriteConfig()
 		return client
-
 	}
 
 	return nil	
@@ -45,7 +45,12 @@ func getClient(ctx context.Context)(*github.Client){
 func printRepositories(repos []*github.Repository){
 	// Iterate over the repositories and print their names
 	for _, repo := range repos {
-		fmt.Println(repo.GetFullName())
+		fmt.Printf("Repository: %s\n",repo.GetFullName())
+		fmt.Printf("Description: %s\n", repo.GetDescription())
+		fmt.Printf("Language: %se\n", repo.GetLanguage())
+		dateTime := repo.CreatedAt.Format("2006-01-02 15:04:05")
+		fmt.Printf("Created at: %s\n",dateTime)
+		fmt.Println("--------------")
 	}
 }
 
@@ -63,3 +68,29 @@ func getRepositories(targetUser string, ctx context.Context) ([]*github.Reposito
 	return repos
 }
 
+func print5PullRequests(pullRequests []*github.PullRequest){
+
+	// Iterate over the pull requests and print relevant information
+	fmt.Println("Pull requests of Target user:")
+
+	count := 0
+	for _, pr := range pullRequests{
+		fmt.Printf("Repository: %s\n", pr.GetBase().GetRepo().GetFullName())
+		fmt.Printf("Title: %s\n", pr.GetTitle())
+		fmt.Printf("Number: %d\n", pr.GetNumber())
+		fmt.Printf("State: %s\n", pr.GetState())
+
+		dateTime := pr.CreatedAt.Format("2006-01-02 15:04:05")
+		fmt.Printf("Created at: %s\n",dateTime)
+		fmt.Println("--------------")
+
+		count++
+		if count==5{
+			break;
+		}
+	}
+
+	if count==0{
+		fmt.Println("No pull requests")
+	}
+}

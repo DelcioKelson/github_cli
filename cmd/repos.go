@@ -5,23 +5,31 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 	"context"
 )
 
 // getReposCmd represents the getRepos command
 var getReposCmd = &cobra.Command{
-	Use:   "getRepos",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Use:   "repos",
+	Short: "Retrieve information about repositories owned by the target user",
+	Long: `The repos command allows you to retrieve a list of
+	repositories owned by the target user from GitHub. It fetches
+	information about the repositories, including their names,
+	descriptions, languages used, and the number of stars and
+	forks they have received.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Usage:
+github_cli repos [target user]
+	
+Example:
+github_cli repos john-doe
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		repos := getRepositories(args[0],ctx)
+		fmt.Println("Repositories owned by the Target user:")
 		printRepositories(repos)
 	},
 }
