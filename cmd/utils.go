@@ -6,7 +6,6 @@ import (
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 	"github.com/spf13/viper"
-
 	"golang.org/x/crypto/ssh/terminal"
 	"os"
 )
