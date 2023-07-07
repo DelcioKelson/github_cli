@@ -12,7 +12,7 @@ import (
 func TestGetFollowedRepositories(t *testing.T)  {
 	
 
-	token := os.Getenv("Token")
+	token := os.Getenv("TOKEN")
 	viper.Set("github_token", token)
 
 	// Scenario 1: Valid Scenario
