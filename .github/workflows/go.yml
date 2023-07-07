@@ -25,6 +25,8 @@ jobs:
       run: go build -v ./...
 
     - name: Test
+      env:
+        TOKEN: ${{ secrets.Token }}
       run: go test -v ./...
 
 
