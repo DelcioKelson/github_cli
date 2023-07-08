@@ -31,7 +31,7 @@ github_cli prs delciokelson`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		repos := getRepositories(args[0],ctx)
-		prs := getPullRequests(repos, client, args[0], ctx)
+		prs := getPullRequests(repos, args[0], ctx)
 		print5PullRequests(prs)
 	},
 }
