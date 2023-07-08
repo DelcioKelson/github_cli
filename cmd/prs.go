@@ -26,11 +26,10 @@ Usage:
 github_cli prs [target user]
 	
 Example:
-github_cli prs john-doe`,
+github_cli prs delciokelson`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
-		client := getClient(ctx)
 		repos := getRepositories(args[0],ctx)
 		prs := getPullRequests(repos, client, args[0], ctx)
 		print5PullRequests(prs)
@@ -41,7 +40,9 @@ func init() {
 	rootCmd.AddCommand(getPrsCmd)
 }
 
-func getPullRequests(repos []*github.Repository, client *github.Client, targetUser string, ctx context.Context) []*github.PullRequest{
+func getPullRequests(repos []*github.Repository, targetUser string, ctx context.Context) []*github.PullRequest{
+
+	client := getClient(ctx)
 
 	// Iterate over the repositories
 	var allPullRequests []*github.PullRequest

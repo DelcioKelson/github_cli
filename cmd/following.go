@@ -23,7 +23,7 @@ Usage:
 github_cli following [target user]
 	
 Example:
-github_cli following john-doe
+github_cli following delciokelson
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()

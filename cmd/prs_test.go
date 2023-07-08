@@ -9,32 +9,34 @@ import (
 )
 
 
-func TestGetFollowedRepositories(t *testing.T)  {
-	
+func TestGetRepositories(t *testing.T){
 
 	token := os.Getenv("TOKEN")
 	viper.Set("github_token", token)
 	ctx := context.Background()
 
+
 	// Scenario 1: Valid Scenario
+	/*
 	t.Run("Valid Scenario", func(t *testing.T) {
 		targetUser := "DelcioKelson"
 
-		if res := len(getFollowedRepositories(targetUser,ctx)); res == 0{
-			t.Errorf("Expected different instead of %d", res)
-		}
-	})
+		repos := getRepositories(targetUser,ctx)
 
-	/*
-	// Scenario 2: Empty Result
-	t.Run("Empty Result", func(t *testing.T) {
-		targetUser := "DelcioKelson"
-
-		// Call the function
-		if res := len(getFollowedRepositories(targetUser,ctx)); res == 0{
+		if res := len(getPrs(repos,targetUser,ctx)); res != 0{
 			t.Errorf("Expected different instead of %d", res)
 		}
 	})
 	*/
+	
+	// Scenario 2: Empty Result
+	t.Run("Empty Result", func(t *testing.T) {
+		targetUser := "DelcioKelson"
 
+		repos := getRepositories(targetUser,ctx)
+
+		if res := len(getPrs(repos,targetUser,ctx)); res != 0{
+			t.Errorf("Expected different instead of %d", res)
+		}
+	})
 }
