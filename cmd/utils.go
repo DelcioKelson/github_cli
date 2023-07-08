@@ -6,7 +6,7 @@ import (
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 	"github.com/spf13/viper"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 	"os"
 )
 
@@ -15,7 +15,7 @@ func getClient(ctx context.Context)(*github.Client){
 	for {
 		if !viper.IsSet("github_token") {
 			fmt.Println("Set you github token:")
-			token, _ := terminal.ReadPassword(int(os.Stdin.Fd()))
+			token, _ := term.ReadPassword(int(os.Stdin.Fd()))
 			viper.Set("github_token", token)
 		}
 
@@ -28,17 +28,21 @@ func getClient(ctx context.Context)(*github.Client){
 		_, _, err := client.Users.Get(ctx, "")
 
 		if err != nil {
-			if _, ok := err.(*github.ErrorResponse); ok {
+			_, ok := err.(*github.ErrorResponse) 
+			if ok {
 				fmt.Println("Invalid GitHub token. Please provide a valid token.")
 				viper.Set("github_token", nil)
 				continue
 			}
 		}	
-		viper.WriteConfig()
+		
+		err = viper.WriteConfig()
+		if err != nil {
+  			fmt.Printf("Error writing config file, %s", err)
+		}
+
 		return client
 	}
-
-	return nil	
 }
 
 func printRepositories(repos []*github.Repository){
