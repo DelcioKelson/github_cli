@@ -51,7 +51,7 @@ on:
 env:
   PROJECT_ID: github-cli # TODO: update Google Cloud project id
   GAR_LOCATION: europe-southwest1 # TODO: update Artifact Registry location
-  SERVICE: eu.gcr.io # TODO: update Cloud Run service name
+  SERVICE: grc # TODO: update Cloud Run service name
   REGION: europe-southwest1-a # TODO: update Cloud Run service region
 
 jobs:
