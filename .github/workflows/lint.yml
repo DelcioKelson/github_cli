@@ -10,12 +10,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-go@v3
-        with:
+      with:
             stable: 'false'
             go-version: 1.19
 
     - name: Lint 
-        run: |
+      run: |
             curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh 
             | sh -s -- -b $(go env GOPATH)/bin v1.26.0
 
