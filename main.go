@@ -6,6 +6,9 @@ package main
 
 import (
 	"os"
+	"log"
+	"http"
+	"fmt"
 	"github.com/DelcioKelson/github_cli/cmd"
 	)
 
