@@ -4,7 +4,10 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 */
 package main
 
-import "github.com/DelcioKelson/github_cli/cmd"
+import (
+	"os"
+	"github.com/DelcioKelson/github_cli/cmd"
+	)
 
 func main() {
 	port := os.Getenv("PORT")
