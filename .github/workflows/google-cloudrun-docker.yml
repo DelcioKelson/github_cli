@@ -49,7 +49,7 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: github-cli # TODO: update Google Cloud project id
+  PROJECT_ID: github-cli-scalabit  # TODO: update Google Cloud project id
   GAR_LOCATION: europe-southwest1 # TODO: update Artifact Registry location
   SERVICE: my-service # TODO: update Cloud Run service name
   REGION: europe-southwest1 # TODO: update Cloud Run service region
