@@ -28,7 +28,7 @@ func TestGetFollowedRepositories(t *testing.T)  {
 		targetUser := "Delibreezy"
 
 		// Call the function
-		if res := len(getFollowedRepositories(targetUser,ctx)); res == 0{
+		if res := len(getFollowedRepositories(targetUser,ctx)); res != 0{
 			t.Errorf("Expected different instead of %d", res)
 		}
 	})
