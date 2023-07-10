@@ -20,7 +20,7 @@ func TestGetPullRequests(t *testing.T){
 
 		repos := getRepositories(targetUser,ctx)
 
-		if res := len(getPrs(repos,targetUser,ctx)); res != 0{
+		if res := len(getPullRequests(repos,targetUser,ctx)); res != 0{
 			t.Errorf("Expected different instead of %d", res)
 		}
 	})
