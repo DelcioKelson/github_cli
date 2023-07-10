@@ -12,11 +12,14 @@ import (
 
 func getClient(ctx context.Context)(*github.Client){
 
+	flag := 0
+
 	for {
 		if !viper.IsSet("github_token") {
 			fmt.Println("Set you github token:")
 			token, _ := term.ReadPassword(int(os.Stdin.Fd()))
 			viper.Set("github_token", token)
+			flag++
 		}
 
 		ts := oauth2.StaticTokenSource(
@@ -36,10 +39,13 @@ func getClient(ctx context.Context)(*github.Client){
 			}
 		}	
 		
-		err = viper.WriteConfig()
-		if err != nil {
-  			fmt.Printf("Error writing config file, %s", err)
+		if(flag>1){
+			err = viper.WriteConfig()
+			if err != nil {
+				  fmt.Printf("Error writing config file, %s", err)
+			}
 		}
+
 
 		return client
 	}
