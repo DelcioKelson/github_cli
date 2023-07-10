@@ -8,8 +8,7 @@ import (
 	"fmt"
 	"context"
 	"github.com/spf13/cobra"
-	"github.com/google/go-github/github"
-	
+	"github.com/google/go-github/github"	
 )
 
 // followsRepoCmd represents the followsRepo command
@@ -36,7 +35,6 @@ github_cli following delciokelson
 func init() {
 	rootCmd.AddCommand(followsRepoCmd)
 }
-
 
 func getFollowedRepositories(targetUser string, ctx context.Context) ([]*github.Repository){
 

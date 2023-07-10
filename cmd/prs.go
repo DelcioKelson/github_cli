@@ -44,9 +44,9 @@ func getPullRequests(repos []*github.Repository, targetUser string, ctx context.
 
 	client := getClient(ctx)
 
-	// Iterate over the repositories
 	var allPullRequests []*github.PullRequest
 
+	// Iterate over the repositories
 	for _, repo := range repos {
 		// Get pull requests for each repository
 		pullRequests, _, err := client.PullRequests.List(ctx, targetUser, *repo.Name, nil)
@@ -58,6 +58,8 @@ func getPullRequests(repos []*github.Repository, targetUser string, ctx context.
 		allPullRequests = append(allPullRequests, pullRequests...)
 	}
 
+
+	// sort pull requests by their creation data
 	sort.Slice(allPullRequests, func(i, j int) bool {
 		return allPullRequests[i].CreatedAt.After(*allPullRequests[j].CreatedAt)
 		})

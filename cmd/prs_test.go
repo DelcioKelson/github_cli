@@ -5,16 +5,13 @@ import (
 	"context"
 	"github.com/spf13/viper"
 	"os"
-
 )
-
 
 func TestGetPullRequests(t *testing.T){
 
 	token := os.Getenv("TOKEN")
 	viper.Set("github_token", token)
 	ctx := context.Background()
-
 
 	// Scenario 1: Valid Scenario
 	/*

@@ -46,7 +46,7 @@ func getClient(ctx context.Context)(*github.Client){
 }
 
 func printRepositories(repos []*github.Repository){
-	// Iterate over the repositories and print their names
+	// Iterate over the repositories and print their data
 	for _, repo := range repos {
 		fmt.Printf("Repository: %s\n",repo.GetFullName())
 		fmt.Printf("Description: %s\n", repo.GetDescription())
@@ -61,7 +61,7 @@ func getRepositories(targetUser string, ctx context.Context) ([]*github.Reposito
 
 	client := getClient(ctx)
 
-	// List all repositories for the target user
+	// get all repositories for the target user
 	repos, _, err := client.Repositories.List(ctx, targetUser, nil)
 	if err != nil {
 		fmt.Printf("Error retrieving repositories: %v\n", err)
@@ -73,10 +73,11 @@ func getRepositories(targetUser string, ctx context.Context) ([]*github.Reposito
 
 func print5PullRequests(pullRequests []*github.PullRequest){
 
-	// Iterate over the pull requests and print relevant information
 	fmt.Println("Pull requests of Target user:")
 
 	count := 0
+
+	// Iterate over the pull requests and print relevant information
 	for _, pr := range pullRequests{
 		fmt.Printf("Repository: %s\n", pr.GetBase().GetRepo().GetFullName())
 		fmt.Printf("Title: %s\n", pr.GetTitle())

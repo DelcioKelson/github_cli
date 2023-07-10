@@ -1,6 +1,5 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -36,5 +35,4 @@ github_cli repos delciokelson
 
 func init() {
 	rootCmd.AddCommand(getReposCmd)
-
 }

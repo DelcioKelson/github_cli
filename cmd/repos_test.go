@@ -5,9 +5,7 @@ import (
 	"context"
 	"github.com/spf13/viper"
 	"os"
-
 )
-
 
 func TestGetRepositories(t *testing.T){
 
@@ -24,16 +22,15 @@ func TestGetRepositories(t *testing.T){
 		}
 	})
 
-	/*
-	// Scenario 2: Empty Result
+	
+	// Scenario 2: Empty Repository
 	t.Run("Empty Result", func(t *testing.T) {
-		targetUser := "DelcioKelson"
+		targetUser := "Delibreezy"
 
 		// Call the function
 		if res := len(getRepositories(targetUser,ctx)); res != 0{
 			t.Errorf("Expected different instead of %d", res)
 		}
 	})
-	*/
-
+	
 }
