@@ -14,9 +14,9 @@ func TestGetPullRequests(t *testing.T){
 	ctx := context.Background()
 
 	// Scenario 1: Valid Scenario
-	/*
+
 	t.Run("Valid Scenario", func(t *testing.T) {
-		targetUser := "DelcioKelson"
+		targetUser := "rybakov"
 
 		repos := getRepositories(targetUser,ctx)
 
@@ -24,8 +24,7 @@ func TestGetPullRequests(t *testing.T){
 			t.Errorf("Expected different instead of %d", res)
 		}
 	})
-	*/
-	
+		
 	// Scenario 2: Empty Result
 	t.Run("Empty Result", func(t *testing.T) {
 		targetUser := "DelcioKelson"
