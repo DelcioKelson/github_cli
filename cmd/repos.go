@@ -4,9 +4,9 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"github.com/spf13/cobra"
-	"context"
 )
 
 // getReposCmd represents the getRepos command
@@ -27,7 +27,7 @@ github_cli repos delciokelson
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
-		repos := getRepositories(args[0],ctx)
+		repos := getRepositories(args[0], ctx)
 		fmt.Println("Repositories owned by the Target user:")
 		printRepositories(repos)
 	},

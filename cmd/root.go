@@ -1,14 +1,13 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
-	"os"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"os"
 )
 
 var cfgFile string

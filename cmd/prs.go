@@ -1,17 +1,15 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"fmt"
-	"sort"
 	"context"
-	"github.com/spf13/cobra"
+	"fmt"
 	"github.com/google/go-github/github"
+	"github.com/spf13/cobra"
+	"sort"
 )
-
 
 // getPrsCmd represents the getPrs command
 var getPrsCmd = &cobra.Command{
@@ -30,7 +28,7 @@ github_cli prs delciokelson`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
-		repos := getRepositories(args[0],ctx)
+		repos := getRepositories(args[0], ctx)
 		prs := getPullRequests(repos, args[0], ctx)
 		print5PullRequests(prs)
 	},
@@ -40,7 +38,7 @@ func init() {
 	rootCmd.AddCommand(getPrsCmd)
 }
 
-func getPullRequests(repos []*github.Repository, targetUser string, ctx context.Context) []*github.PullRequest{
+func getPullRequests(repos []*github.Repository, targetUser string, ctx context.Context) []*github.PullRequest {
 
 	client := getClient(ctx)
 
@@ -58,13 +56,10 @@ func getPullRequests(repos []*github.Repository, targetUser string, ctx context.
 		allPullRequests = append(allPullRequests, pullRequests...)
 	}
 
-
 	// sort pull requests by their creation data
 	sort.Slice(allPullRequests, func(i, j int) bool {
 		return allPullRequests[i].CreatedAt.After(*allPullRequests[j].CreatedAt)
-		})
+	})
 
 	return allPullRequests
 }
-
-

@@ -1,14 +1,13 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
+	"github.com/google/go-github/github"
 	"github.com/spf13/cobra"
-	"github.com/google/go-github/github"	
 )
 
 // followsRepoCmd represents the followsRepo command
@@ -26,7 +25,7 @@ github_cli following delciokelson
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
-		repos := getFollowedRepositories(args[0],ctx)
+		repos := getFollowedRepositories(args[0], ctx)
 		fmt.Println("Repositories followed by the Target user:")
 		printRepositories(repos)
 	},
@@ -36,7 +35,7 @@ func init() {
 	rootCmd.AddCommand(followsRepoCmd)
 }
 
-func getFollowedRepositories(targetUser string, ctx context.Context) ([]*github.Repository){
+func getFollowedRepositories(targetUser string, ctx context.Context) []*github.Repository {
 
 	client := getClient(ctx)
 
